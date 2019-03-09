@@ -1,26 +1,33 @@
 <meta name="viewport" content="width=500, initial-scale=1"> <!--This line of code is for mobile responsive -->
 
-<div class="BorderMargin">
-  <image src = '/images/LED.png' alt="LED" style="width:180px;height:180px;">
 
-  <form action="/led/on" method="post">
-    <button type="submit" class="button">LED On </button>
-      <button type="submit" formmethod="post" formaction="/led/off" class="button button3">LED Off</button>
+<head>
+    <title> Raspbery Pi LED Ctrl </title>
+ </head>
+
+<div class="BorderMargin">
+  <a id="ledPic">
+    <!-- gets filled in by javascript below depending upon LED state returned from button press-->
+  </a>
+
+  <form id="ledOnOff">
+    <!-- gets filled in by javascript below depending upon LED state returned from button press-->
   </form>
 
   <a>Led Status: <%=status %></a>
 </div>
 
- <image src = '/images/nodejs-logo.png' alt="NodeJS" style="width:180px;height:180px;  float: left;">
-  <image src = '/images/rpi-logo.png' alt="NodeJS" style="width:140px;height:180px;  float: left;">
+<image src = '/images/nodejs-logo.png' alt="NodeJS" style="width:90px;height:90px;  float: left;">
+<image src = '/images/rpi-logo.png' alt="NodeJS" style="width:70px;height:90px;  float: left;">
 
 <!-- The below code is only for look and styling -->
 <style>
 .button {
-    background-color: #4CAF50; /* Green */
+    background-color: #008CBA; /* Blue */
     border: none;
     color: white;
-    padding: 15px 32px;
+    border-radius: 6px; 
+    padding: 8px 16px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -29,18 +36,34 @@
     cursor: pointer;
 }
 
-.button2 {background-color: #008CBA;} /* Blue */
+.button2 {background-color: #4CAF50;} /* Green */
 .button3 {background-color: #f44336;} /* Red */ 
 .button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
 .button5 {background-color: #555555;} /* Black */
 
 
 .BorderMargin {
-  
    margin: 10px;
    padding: 10px;
-   max-width: 300px;
-   height: 300px;
+   max-width: 150px;
+   height: 225px;
    border: 1px solid black;
 }   
 </style>
+
+<script>
+// Action Get update toggle status
+(function  (){
+  var ledStatus="<%=status %>"
+  const ELEM_PIC = document.querySelector("#ledPic");
+  const ELEM_BUTTON = document.querySelector("#ledOnOff");
+  //console.log(`LED-STATUS: ${ledStatus}`);
+  if (ledStatus==="On") {
+    ELEM_PIC.innerHTML="<image src = '/images/LedOn.png' alt='LED' style='width:150px;height:150px;'>"
+    ELEM_BUTTON.innerHTML="<button type='submit' formethode='get' formaction='/led/toggle' class='button button3'>Turn Off </button>"
+  } else {
+    ELEM_PIC.innerHTML="<image src = '/images/LedOff.png' alt='LED' style='width:115px;height:150px;'>"
+    ELEM_BUTTON.innerHTML="<button type='submit' formethode='get' formaction='/led/toggle' class='button button2'>Turn On </button>"
+  }
+  })();
+</script>

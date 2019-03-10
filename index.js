@@ -28,10 +28,10 @@ app.get('/led/toggle', function(req, res){
     
     if (ledStatus==="On") {
 	ledStatus = "Off";
-	pin7State = true;
+	pin7State = false;
     } else {
 	ledStatus = "On";
-	pin7State = false
+	pin7State = true
     }
     gpio.write(7, pin7State, function(err) {
 	if (err) throw err;
